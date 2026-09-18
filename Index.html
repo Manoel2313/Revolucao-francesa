@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revolução Francesa — O Livro Interativo (1789–1799)</title>
+<meta name="description" content="Livro escolar interativo sobre a Revolução Francesa: cada página é um ano, com fatos, personagens e consequências.">
+<meta name="theme-color" content="#0a1738">
+<style>
+/* ============================================================
+   1. VARIÁVEIS E TEMAS
+   ============================================================ */
+:root{
+  --blue-900:#0a1738;
+  --blue-800:#112a5e;
+  --blue-700:#1b3a7a;
+  --red-700:#8f1523;
+  --red-600:#b31b2c;
+  --gold-600:#a8862a;
+  --gold-500:#c9a227;
+  --gold-400:#e3c15a;
+
+  --paper:#f6efe0;
+  --paper-dark:#e8dcc3;
+  --paper-line:rgba(17,42,94,.14);
+  --ink:#1b2138;
+  --ink-soft:#555d78;
+  --cover-bg:linear-gradient(135deg,#0a1738 0%,#112a5e 55%,#1b3a7a 100%);
+  --cover-accent:#c9a227;
+
+  --radius:12px;
+  --header-h:58px;
+  --shadow-book:0 30px 60px -25px rgba(10,23,56,.55), 0 4px 12px rgba(10,23,56,.15);
+  --shadow-sm:0 2px 8px -3px rgba(10,23,56,.25);
+
+  --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --font-body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-script:"Snell Roundhand","Apple Chancery","Brush Script MT",cursive;
+}
+
+[data-theme="dark"]{
+  --blue-900:#05090f;
+  --blue-800:#0e1d3f;
+  --blue-700:#16305f;
+  --red-600:#d93445;
+  --red-700:#a81c2c;
+  --gold-500:#e0bc4a;
+  --gold-400:#f0d47a;
+
+  --paper:#182236;
+  --paper-dark:#0f1728;
+  --paper-line:rgba(190,205,240,.16);
+  --ink:#eef2fb;
+  --ink-soft:#a6b0cc;
+  --cover-bg:linear-gradient(135deg,#05090f 0%,#0e1d3f 55%,#16305f 100%);
+  --cover-accent:#e0bc4a;
+
+  --shadow-book:0 30px 60px -25px rgba(0,0,0,.85), 0 4px 14px rgba(0,0,0,.5);
+  --shadow-sm:0 2px 8px -3px rgba(0,0,0,.6);
+}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.68;
+  color:var(--ink);
+  background:
+    radial-gradient(1400px 700px at 50% -10%, #1b2138 0%, #0f1424 55%, #080c16 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s ease,color .5s ease;
+}
+[data-theme="dark"] body{
+  background:radial-gradient(1400px 700px at 50% -10%, #0e1d3f 0%, #06090f 55%, #030509 100%);
+}
+
+img,svg{display:block;max-width:100%;}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;font-weight:700;letter-spacing:-.005em;margin:0 0 .5em;}
+p{margin:0 0 1em;}
+button{font:inherit;color:inherit;}
+
+:focus-visible{outline:3px solid var(--gold-500);outline-offset:3px;border-radius:6px;}
+
+.container{width:min(100% - 40px, 1180px);margin-inline:auto;position:relative;z-index:2;}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:999;
+  background:var(--blue-900);color:#fff;padding:12px 20px;border-radius:0 0 10px 0;
+  font-weight:600;text-decoration:none;
+}
+.skip-link:focus{left:0;}
+
+/* Textura de papel antigo no fundo do body */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] body::before{opacity:.06;}
+
+/* ============================================================
+   3. CABEÇALHO
+   ============================================================ */
+.site-header{
+  position:sticky;top:0;z-index:120;
+  background:rgba(10,23,56,.72);
+  backdrop-filter:blur(14px) saturate(1.3);
+  -webkit-backdrop-filter:blur(14px) saturate(1.3);
+  border-bottom:1px solid rgba(201,162,39,.24);
+  transition:background .4s ease,border-color .4s ease;
+}
+[data-theme="dark"] .site-header{background:rgba(5,9,15,.8);}
+.header-inner{
+  height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand{
+  display:flex;align-items:center;gap:11px;
+  text-decoration:none;color:#f6efe0;
+  font-family:var(--font-display);
+  font-weight:700;font-size:1rem;letter-spacing:.02em;
+  white-space:nowrap;
+}
+.brand-mark{
+  width:28px;height:28px;flex:none;border-radius:7px;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  box-shadow:0 0 0 1px rgba(201,162,39,.5);
+}
+.brand-mark i{display:block;height:100%;}
+.brand-mark i:nth-child(1){background:var(--blue-800);}
+.brand-mark i:nth-child(2){background:#f6efe0;}
+.brand-mark i:nth-child(3){background:var(--red-600);}
+.brand small{
+  display:block;font-family:var(--font-body);font-size:.66rem;
+  font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(246,239,224,.6);line-height:1;
+}
+.header-actions{display:flex;align-items:center;gap:8px;}
+
+.theme-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:42px;padding:8px 14px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(201,162,39,.4);
+  border-radius:999px;cursor:pointer;
+  font-size:.82rem;font-weight:650;
+  color:#f6efe0;
+  transition:transform .2s,background .25s,border-color .25s;
+}
+.theme-toggle:hover{transform:translateY(-2px);background:rgba(201,162,39,.18);border-color:var(--gold-400);}
+.theme-toggle .ico{font-size:1.05rem;line-height:1;}
+.theme-toggle .label-dark{display:none;}
+[data-theme="dark"] .theme-toggle .label-light{display:none;}
+[data-theme="dark"] .theme-toggle .label-dark{display:inline;}
+
+/* ============================================================
+   4. PALCO PRINCIPAL (LIVRO)
+   ============================================================ */
+.stage{
+  position:relative;
+  padding:clamp(28px,4vw,54px) 0 clamp(50px,7vw,90px);
+  z-index:2;
+}
+
+/* CABEÇALHO DO LIVRO / TÍTULO */
+.book-head{
+  text-align:center;
+  color:#f6efe0;
+  margin-bottom:clamp(26px,4vw,44px);
+  position:relative;
+  z-index:3;
+}
+.book-head .kicker{
+  display:inline-block;
+  font-size:.7rem;font-weight:750;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold-400);
+  padding:6px 16px;border-radius:999px;
+  border:1px solid rgba(201,162,39,.4);
+  background:rgba(201,162,39,.08);
+  margin-bottom:16px;
+}
+.book-head h1{
+  font-size:clamp(1.9rem,5.4vw,3.4rem);
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  margin:0 0 12px;
+  text-shadow:0 6px 30px rgba(0,0,0,.5);
+}
+.book-head h1 .accent{
+  display:block;
+  background:linear-gradient(180deg,#fff 10%,var(--gold-400) 92%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.book-head p.sub{
+  font-size:clamp(.92rem,2vw,1.05rem);
+  color:rgba(246,239,224,.78);
+  max-width:560px;margin:0 auto 6px;
+}
+
+/* MOLDURA DO LIVRO */
+.book-frame{
+  position:relative;
+  width:min(100% - 40px, 1080px);
+  margin-inline:auto;
+  z-index:2;
+}
+.book{
+  position:relative;
+  border-radius:14px;
+  background:var(--cover-bg);
+  padding:clamp(10px,1.4vw,18px);
+  box-shadow:var(--shadow-book);
+  overflow:hidden;
+}
+.book::before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:14px;
+  box-shadow:inset 0 0 0 1px rgba(201,162,39,.28);
+}
+/* Lombada central decorativa */
+.book::after{
+  content:"";position:absolute;top:0;bottom:0;left:50%;
+  width:14px;transform:translateX(-50%);
+  background:linear-gradient(90deg,
+    rgba(0,0,0,.28) 0%,
+    rgba(0,0,0,.05) 25%,
+    rgba(255,255,255,.09) 50%,
+    rgba(0,0,0,.05) 75%,
+    rgba(0,0,0,.28) 100%);
+  pointer-events:none;
+  z-index:5;
+  opacity:.85;
+}
+
+/* PÁGINA */
+.page-viewport{
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  background:var(--paper);
+  transition:background .45s ease;
+  min-height:560px;
+}
+
+/* Textura sutil de papel por página */
+.page-viewport::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(90deg, transparent 0%, rgba(0,0,0,.02) 48%, rgba(0,0,0,.06) 50%, rgba(0,0,0,.02) 52%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity:.5;
+  mix-blend-mode:multiply;
+}
+[data-theme="dark"] .page-viewport::before{mix-blend-mode:screen;opacity:.14;}
+
+/* Animações de virada de página */
+.page{
+  position:relative;
+  z-index:1;
+  padding:clamp(28px,4.2vw,54px) clamp(22px,4vw,60px) clamp(70px,7vw,96px);
+  animation:pageIn .55s cubic-bezier(.2,.9,.25,1) both;
+}
+@keyframes pageIn{
+  from{opacity:0;transform:translateX(28px) rotateY(-6deg);}
+  to{opacity:1;transform:none;}
+}
+.page.flip-back{animation:pageInBack .55s cubic-bezier(.2,.9,.25,1) both;}
+@keyframes pageInBack{
+  from{opacity:0;transform:translateX(-28px) rotateY(6deg);}
+  to{opacity:1;transform:none;}
+}
+
+/* ============================================================
+   5. CONTEÚDO DA PÁGINA (ANO)
+   ============================================================ */
+.page-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:24px;
+  padding-bottom:22px;
+  margin-bottom:26px;
+  border-bottom:2px solid var(--paper-line);
+  position:relative;
+}
+.page-header::after{
+  content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
+  background:linear-gradient(90deg,var(--blue-700),var(--gold-500),var(--red-600));
+  width:64px;
+}
+.page-year-block{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+}
+.page-year{
+  font-family:var(--font-display);
+  font-size:clamp(2.6rem,8vw,4.6rem);
+  font-weight:800;
+  line-height:.9;
+  letter-spacing:-.02em;
+  color:var(--blue-800);
+  background:linear-gradient(180deg,var(--blue-800) 10%,var(--red-700) 130%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+[data-theme="dark"] .page-year{
+  background:linear-gradient(180deg,var(--gold-400) 10%,var(--red-600) 130%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.page-year-label{
+  font-family:var(--font-body);
+  font-size:.72rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-soft);
+  padding-bottom:8px;
+  border-left:1px solid var(--paper-line);
+  padding-left:16px;
+  line-height:1.6;
+}
+.page-year-label strong{display:block;color:var(--gold-600);font-weight:800;}
+[data-theme="dark"] .page-year-label strong{color:var(--gold-400);}
+
+.page-meta{
+  text-align:right;
+  font-size:.72rem;
+  color:var(--ink-soft);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:700;
+  padding-top:8px;
+  white-space:nowrap;
+}
+.page-meta span{display:block;}
+.page-meta .page-num{
+  font-family:var(--font-display);
+  font-size:1.6rem;
+  font-weight:700;
+  letter-spacing:0;
+  color:var(--blue-800);
+  text-transform:none;
+  margin-top:2px;
+}
+[data-theme="dark"] .page-meta .page-num{color:var(--gold-400);}
+
+.page-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.3rem,3.2vw,1.75rem);
+  font-style:italic;
+  font-weight:600;
+  color:var(--ink);
+  margin:0 0 26px;
+  letter-spacing:-.005em;
+  line-height:1.4;
+}
+.page-title::before{
+  content:"❝";
+  color:var(--gold-500);
+  font-size:1.6em;
+  line-height:0;
+  vertical-align:-.28em;
+  margin-right:6px;
+  font-family:var(--font-display);
+}
+.page-title::after{
+  content:"❞";
+  color:var(--gold-500);
+  font-size:1.6em;
+  line-height:0;
+  vertical-align:-.28em;
+  margin-left:6px;
+  font-family:var(--font-display);
+}
+
+/* LISTA DE FATOS */
+.facts{
+  display:grid;
+  gap:18px;
+  counter-reset:fact;
+}
+.fact{
+  position:relative;
+  padding:18px 22px 18px 66px;
+  background:linear-gradient(180deg, rgba(201,162,39,.05), rgba(201,162,39,0) 70%), var(--paper);
+  border:1px solid var(--paper-line);
+  border-radius:10px;
+  counter-increment:fact;
+  transition:transform .3s cubic-bezier(.2,.9,.25,1),box-shadow .3s,border-color .3s,background .4s;
+  box-shadow:var(--shadow-sm);
+  cursor:pointer;
+}
+[data-theme="dark"] .fact{background:linear-gradient(180deg, rgba(201,162,39,.08), rgba(201,162,39,0) 70%), var(--paper);}
+.fact::before{
+  content:counter(fact, decimal-leading-zero);
+  position:absolute;
+  left:18px;top:18px;
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  font-family:var(--font-display);
+  font-size:.95rem;font-weight:800;
+  color:#f6efe0;
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-800));
+  border-radius:8px;
+  box-shadow:0 6px 14px -6px rgba(17,42,94,.7);
+  letter-spacing:.02em;
+}
+.fact:nth-child(even)::before{
+  background:linear-gradient(135deg,var(--red-600),var(--red-700));
+  box-shadow:0 6px 14px -6px rgba(179,27,44,.7);
+}
+.fact:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold-500);
+  box-shadow:0 12px 26px -12px rgba(10,23,56,.45);
+}
+.fact-date{
+  display:inline-block;
+  font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-600);
+  background:rgba(201,162,39,.12);
+  border:1px solid rgba(201,162,39,.32);
+  padding:3px 10px;border-radius:999px;
+  margin-bottom:8px;
+}
+[data-theme="dark"] .fact-date{color:var(--gold-400);}
+.fact h3{
+  font-size:1.05rem;
+  margin:0 0 6px;
+  line-height:1.3;
+}
+.fact p{
+  margin:0;
+  font-size:.9rem;
+  color:var(--ink-soft);
+  line-height:1.65;
+}
+.fact .fact-more{
+  display:inline-block;
+  margin-top:10px;
+  font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue-700);
+  transition:color .25s;
+}
+[data-theme="dark"] .fact .fact-more{color:var(--gold-400);}
+.fact:hover .fact-more{color:var(--red-600);}
+
+/* Selo de destaque */
+.fact.featured{
+  border-color:rgba(179,27,44,.42);
+  background:linear-gradient(180deg, rgba(179,27,44,.09), rgba(179,27,44,0) 70%), var(--paper);
+  box-shadow:0 10px 24px -14px rgba(179,27,44,.55);
+}
+.fact.featured::before{
+  background:linear-gradient(135deg,var(--red-600),var(--red-700));
+  box-shadow:0 6px 18px -6px rgba(179,27,44,.9);
+}
+.fact-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;
+  background:linear-gradient(135deg,var(--red-600),var(--red-700));
+  padding:4px 10px;border-radius:999px;
+  margin-left:8px;
+  vertical-align:1px;
+}
+.fact.warning{
+  border-left:4px solid var(--red-600);
+}
+.fact-warning{
+  display:block;
+  margin-top:10px;
+  font-size:.82rem;font-weight:650;
+  color:var(--red-700);
+  background:rgba(179,27,44,.09);
+  padding:9px 13px;border-radius:0 8px 8px 0;
+}
+[data-theme="dark"] .fact-warning{color:#ff9aa6;background:rgba(217,52,69,.14);}
+.fact.closing{
+  border-color:rgba(201,162,39,.55);
+  background:linear-gradient(180deg, rgba(201,162,39,.12), rgba(201,162,39,0) 70%), var(--paper);
+}
+.fact.closing::before{background:linear-gradient(135deg,var(--gold-500),var(--gold-600));color:#2a1f00;box-shadow:0 6px 18px -6px rgba(201,162,39,.9);}
+.fact-closing-banner{
+  display:block;text-align:center;
+  font-family:var(--font-display);
+  font-size:.82rem;font-weight:800;letter-spacing:.22em;
+  color:#fff;
+  background:linear-gradient(135deg,var(--blue-800),var(--red-700));
+  padding:10px 14px;border-radius:8px;
+  margin-bottom:12px;
+}
+
+/* ============================================================
+   6. NAVEGAÇÃO DO LIVRO
+   ============================================================ */
+.book-nav{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:14px;
+  padding:18px clamp(18px,3vw,32px) 6px;
+  background:linear-gradient(180deg, transparent, rgba(0,0,0,.28) 40%);
+  position:relative;
+  z-index:6;
+  margin-top:-1px;
+  border-radius:0 0 10px 10px;
+}
+[data-theme="dark"] .book-nav{background:linear-gradient(180deg, transparent, rgba(0,0,0,.55) 40%);}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  min-height:46px;
+  padding:12px 20px;
+  border-radius:999px;
+  border:1px solid rgba(201,162,39,.42);
+  background:rgba(255,255,255,.08);
+  color:#f6efe0;
+  font-weight:700;font-size:.86rem;
+  cursor:pointer;
+  transition:transform .2s,background .25s,border-color .25s,opacity .25s;
+  white-space:nowrap;
+  justify-self:start;
+}
+.nav-btn.next{justify-self:end;}
+.nav-btn:hover:not(:disabled){transform:translateY(-2px);background:rgba(201,162,39,.2);border-color:var(--gold-400);}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;}
+.nav-btn .arw{font-size:1.1em;line-height:1;}
+
+.page-dots{
+  display:flex;gap:5px;align-items:center;justify-content:center;
+  flex-wrap:wrap;max-width:100%;
+}
+.page-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,.28);
+  border:none;padding:0;cursor:pointer;
+  transition:transform .25s,background .25s,width .25s;
+  flex:none;
+}
+.page-dot:hover{background:rgba(255,255,255,.6);transform:scale(1.3);}
+.page-dot.active{
+  width:24px;border-radius:5px;
+  background:linear-gradient(90deg,var(--gold-400),var(--red-600));
+}
+
+/* Sumário (mini-mapa) */
+.toc{
+  position:absolute;
+  top:14px;right:14px;
+  z-index:8;
+}
+.toc-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:38px;padding:8px 14px;
+  border-radius:999px;
+  background:rgba(246,239,224,.92);
+  border:1px solid rgba(17,42,94,.18);
+  color:var(--blue-900);
+  font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 6px 16px -6px rgba(0,0,0,.4);
+  transition:transform .2s,background .25s;
+}
+.toc-toggle:hover{transform:translateY(-2px);background:#fff;}
+[data-theme="dark"] .toc-toggle{background:rgba(24,34,54,.95);color:#eef2fb;border-color:rgba(201,162,39,.4);}
+.toc-panel{
+  position:absolute;
+  top:calc(100% + 8px);right:0;
+  min-width:210px;max-width:calc(100vw - 60px);
+  background:var(--paper);
+  border:1px solid var(--paper-line);
+  border-radius:12px;
+  padding:10px;
+  box-shadow:0 20px 40px -18px rgba(0,0,0,.5);
+  display:none;
+  max-height:60vh;overflow-y:auto;
+}
+.toc-panel.open{display:block;animation:panelIn .28s cubic-bezier(.2,.9,.25,1) both;}
+@keyframes panelIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+.toc-item{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;
+  padding:9px 12px;
+  background:transparent;border:none;border-radius:8px;
+  text-align:left;
+  font-size:.86rem;font-weight:650;
+  color:var(--ink);
+  cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.toc-item:hover{background:rgba(201,162,39,.15);}
+.toc-item.active{background:linear-gradient(135deg,var(--blue-800),var(--blue-700));color:#fff;}
+.toc-item .toc-year{
+  font-family:var(--font-display);
+  font-weight:800;font-size:.98rem;
+  color:var(--gold-600);
+  letter-spacing:.02em;
+}
+[data-theme="dark"] .toc-item .toc-year{color:var(--gold-400);}
+.toc-item.active .toc-year{color:var(--gold-400);}
+
+/* ============================================================
+   7. PROGRESSO DE LEITURA
+   ============================================================ */
+.reading-progress{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;
+  background:rgba(255,255,255,.08);
+  border-radius:0 0 14px 14px;
+  overflow:hidden;
+  z-index:7;
+}
+.reading-progress span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--gold-500),var(--red-600));
+  transition:width .5s cubic-bezier(.2,.9,.25,1);
+  border-radius:inherit;
+}
+
+/* ============================================================
+   8. MODAL (DETALHE DO FATO)
+   ============================================================ */
+.modal{
+  position:fixed;inset:0;z-index:300;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+}
+.modal.open{display:flex;animation:fadeIn .28s ease both;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-backdrop{
+  position:absolute;inset:0;
+  background:rgba(6,10,24,.75);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  cursor:pointer;
+}
+.modal-panel{
+  position:relative;
+  width:100%;max-width:640px;max-height:88vh;overflow-y:auto;
+  overscroll-behavior:contain;
+  background:var(--paper);
+  border:1px solid var(--paper-line);
+  border-radius:16px;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.75);
+  animation:panelUp .4s cubic-bezier(.2,.9,.25,1) both;
+}
+@keyframes panelUp{from{opacity:0;transform:translateY(34px) scale(.97);}to{opacity:1;transform:none;}}
+.modal-panel::before{
+  content:"";position:sticky;top:0;display:block;height:5px;
+  background:linear-gradient(90deg,var(--blue-800) 0 33.3%, #f6efe0 33.3% 66.6%, var(--red-600) 66.6% 100%);
+}
+.modal-body{padding:32px clamp(22px,4vw,40px) 38px;}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--paper-dark);
+  border:1px solid var(--paper-line);
+  cursor:pointer;font-size:1.05rem;font-weight:700;
+  transition:transform .25s,background .25s,color .25s;
+  z-index:2;
+}
+.modal-close:hover{transform:rotate(90deg);background:var(--red-600);color:#fff;border-color:var(--red-600);}
+.modal-date{
+  display:inline-block;
+  font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-600);
+  background:rgba(201,162,39,.14);
+  border:1px solid rgba(201,162,39,.34);
+  padding:6px 15px;border-radius:999px;
+  margin:0 0 16px;
+}
+[data-theme="dark"] .modal-date{color:var(--gold-400);}
+.modal-panel h3{
+  font-size:clamp(1.35rem,3.6vw,1.85rem);
+  margin:0 0 22px;padding-right:46px;line-height:1.22;
+}
+.modal-block{padding-top:20px;margin-top:20px;border-top:1px solid var(--paper-line);}
+.modal-block:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+.modal-block h4{
+  font-family:var(--font-body);
+  font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-soft);
+  margin:0 0 10px;
+}
+.modal-block p{margin:0;font-size:.98rem;line-height:1.75;}
+.modal-block.importance{
+  background:linear-gradient(135deg, rgba(27,58,122,.08), rgba(179,27,44,.06));
+  border-radius:12px;padding:20px 22px;border:1px solid var(--paper-line);
+  margin-top:24px;
+}
+.modal-block.importance p{font-size:.94rem;color:var(--ink-soft);}
+
+/* ============================================================
+   9. SEÇÃO "SOBRE O LIVRO" / INFO
+   ============================================================ */
+.info-strip{
+  width:min(100% - 40px, 1080px);
+  margin:clamp(40px,6vw,80px) auto 0;
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.info-tile{
+  padding:24px 24px;
+  border-radius:14px;
+  background:rgba(246,239,224,.06);
+  border:1px solid rgba(201,162,39,.22);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:#f6efe0;
+  transition:transform .3s cubic-bezier(.2,.9,.25,1),background .3s,border-color .3s;
+}
+.info-tile:hover{transform:translateY(-4px);background:rgba(246,239,224,.1);border-color:var(--gold-400);}
+.info-tile .num{
+  font-family:var(--font-display);
+  font-size:2rem;font-weight:800;
+  color:var(--gold-400);
+  line-height:1;display:block;margin-bottom:8px;
+}
+.info-tile h3{font-size:.96rem;margin:0 0 6px;color:#f6efe0;}
+.info-tile p{font-size:.84rem;color:rgba(246,239,224,.7);margin:0;line-height:1.6;}
+
+/* ============================================================
+   10. RODAPÉ
+   ============================================================ */
+.site-footer{
+  position:relative;
+  margin-top:clamp(60px,8vw,100px);
+  background:var(--blue-900);
+  color:rgba(246,239,224,.82);
+  padding:56px 0 30px;
+  text-align:center;
+  overflow:hidden;
+}
+.site-footer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--blue-800) 0 33.3%, #f6efe0 33.3% 66.6%, var(--red-600) 66.6% 100%);
+}
+.site-footer::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 80% at 50% 0%, rgba(201,162,39,.12), transparent 70%);
+}
+.footer-inner{position:relative;z-index:2;}
+.footer-emblem{width:42px;height:42px;margin:0 auto 18px;color:var(--gold-400);opacity:.85;}
+.footer-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.15rem,3vw,1.5rem);
+  color:#f6efe0;margin:0 0 6px;
+}
+.footer-sub{
+  font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold-400);margin:0 0 22px;
+}
+.footer-quote{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1rem;
+  color:rgba(246,239,224,.7);
+  max-width:520px;margin:0 auto 26px;
+  padding-top:22px;border-top:1px solid rgba(246,239,224,.14);
+}
+.footer-line{font-size:.76rem;color:rgba(246,239,224,.42);margin:0;}
+
+/* ============================================================
+   11. VOLTAR AO TOPO
+   ============================================================ */
+.to-top{
+  position:fixed;right:22px;bottom:22px;z-index:115;
+  width:50px;height:50px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--blue-800),var(--blue-900));
+  color:#f6efe0;
+  border:1px solid rgba(201,162,39,.45);
+  cursor:pointer;
+  box-shadow:0 16px 34px -14px rgba(0,0,0,.8);
+  opacity:0;visibility:hidden;transform:translateY(18px) scale(.9);
+  transition:opacity .35s,transform .35s,visibility .35s,filter .25s;
+  font-size:1.05rem;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none;}
+.to-top:hover{filter:brightness(1.15);transform:translateY(-3px);}
+
+/* ============================================================
+   12. RESPONSIVO
+   ============================================================ */
+@media (max-width:820px){
+  .brand small{display:none;}
+  .theme-toggle .label{display:none;}
+  .theme-toggle .ico{font-size:1.15rem;}
+  .page-viewport{min-height:auto;}
+  .book::after{display:none;} /* sem lombada no mobile */
+  .book-nav{grid-template-columns:1fr 1fr;gap:10px;}
+  .page-dots{grid-column:1 / -1;order:3;padding-top:6px;}
+  .nav-btn{font-size:.78rem;padding:11px 16px;justify-self:start;}
+  .nav-btn.next{justify-self:end;}
+  .fact{padding:16px 16px 16px 58px;}
+  .fact::before{left:14px;top:16px;width:30px;height:30px;font-size:.86rem;}
+  .page-header{flex-direction:column;gap:14px;}
+  .page-meta{text-align:left;}
+}
+@media (max-width:520px){
+  body{font-size:16px;}
+  .book{padding:8px;border-radius:12px;}
+  .page{padding:24px 18px 60px;}
+  .page-year{font-size:2.4rem;}
+  .page-year-label{font-size:.66rem;padding-left:12px;}
+  .facts{gap:12px;}
+  .fact{padding:14px 14px 14px 52px;border-radius:8px;}
+  .fact::before{left:12px;top:14px;width:26px;height:26px;font-size:.78rem;}
+  .fact h3{font-size:.98rem;}
+  .fact p{font-size:.86rem;}
+  .toc{top:8px;right:8px;}
+  .toc-toggle{padding:7px 11px;font-size:.7rem;}
+  .nav-btn{padding:10px 12px;font-size:.72rem;gap:6px;}
+  .modal{padding:0;align-items:flex-end;}
+  .modal-panel{max-width:100%;max-height:92vh;border-radius:16px 16px 0 0;}
+  .modal-body{padding:26px 20px 34px;}
+  .to-top{right:14px;bottom:14px;width:46px;height:46px;}
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+}
+@media (prefers-contrast:more){
+  :focus-visible{outline-width:4px;}
+  .fact p,.page-title{color:var(--ink);}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#livro">Pular para o livro</a>
+
+<!-- ============================ CABEÇALHO ============================ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#topo" aria-label="Revolução Francesa — início">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>
+        Revolução Francesa
+        <small>Livro Interativo · 1789–1799</small>
+      </span>
+    </a>
+
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Alternar modo escuro">
+        <span class="ico" aria-hidden="true">🌙</span>
+        <span class="label label-light">Escuro</span>
+        <span class="label label-dark">Claro</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- ============================ PALCO / LIVRO ============================ -->
+  <section class="stage" id="livro" aria-labelledby="book-heading">
+
+    <div class="book-head">
+      <span class="kicker">História · França · Século XVIII</span>
+      <h1 id="book-heading">
+        Revolução
+        <span class="accent">Francesa</span>
+      </h1>
+      <p class="sub">Um livro com uma página para cada ano — 1789 a 1799.</p>
+      <p class="sub" style="font-size:.86rem;opacity:.7;margin-top:14px;">
+        Toque em qualquer fato para abrir os detalhes · Use as setas para virar as páginas.
+      </p>
+    </div>
+
+    <div class="book-frame">
+      <div class="book">
+
+        <!-- SUMÁRIO -->
+        <div class="toc">
+          <button class="toc-toggle" id="tocToggle" type="button" aria-expanded="false" aria-controls="tocPanel">
+            ☰ Sumário
+          </button>
+          <div class="toc-panel" id="tocPanel" role="menu" aria-label="Sumário de anos"></div>
+        </div>
+
+        <!-- PÁGINA (VIEWPORT) -->
+        <div class="page-viewport" id="pageViewport">
+          <!-- conteúdo da página é injetado por JS -->
+        </div>
+
+        <!-- NAVEGAÇÃO -->
+        <nav class="book-nav" aria-label="Navegação do livro">
+          <button class="nav-btn prev" id="prevBtn" type="button" aria-label="Página anterior">
+            <span class="arw" aria-hidden="true">←</span> Anterior
+          </button>
+
+          <div class="page-dots" id="pageDots" role="tablist" aria-label="Ir para um ano"></div>
+
+          <button class="nav-btn next" id="nextBtn" type="button" aria-label="Próxima página">
+            Próxima <span class="arw" aria-hidden="true">→</span>
+          </button>
+        </nav>
+
+        <!-- PROGRESSO -->
+        <div class="reading-progress" aria-hidden="true"><span id="readingBar"></span></div>
+
+      </div>
+    </div>
+
+    <!-- TILES DE INFO -->
+    <div class="info-strip">
+      <div class="info-tile">
+        <span class="num">11</span>
+        <h3>Páginas</h3>
+        <p>Uma para cada ano do período revolucionário, de 1789 a 1799.</p>
+      </div>
+      <div class="info-tile">
+        <span class="num">36</span>
+        <h3>Fatos históricos</h3>
+        <p>Acontecimentos-chave organizados em ordem cronológica.</p>
+      </div>
+      <div class="info-tile">
+        <span class="num">10</span>
+        <h3>Anos de história</h3>
+        <p>Uma década que transformou a França e influenciou o mundo.</p>
+      </div>
+      <div class="info-tile">
+        <span class="num">6</span>
+        <h3>Personagens</h3>
+        <p>Figuras centrais — com papéis complexos e, muitas vezes, contraditórios.</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ============================ RODAPÉ ============================ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-emblem" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2c-1.8 2.4-2.7 4.3-2.7 5.8 0 1.1.6 2 1.5 2.5-1.2.3-2.4 0-3.2-.9-1-1.1-1.3-2.7-.9-4.3-1.9 1.2-2.7 3.3-1.9 5.4.7 1.8 2.6 3 4.6 2.9.5 0 .9-.1 1.3-.3v3.4c0 .6-.9 1-1.9 1H8.2v1.4h7.6v-1.4h-.6c-1 0-1.9-.4-1.9-1v-3.4c.4.2.9.3 1.3.3 2 .1 3.9-1.1 4.6-2.9.8-2.1 0-4.2-1.9-5.4.4 1.6.1 3.2-.9 4.3-.8.9-2 1.2-3.2.9.9-.5 1.5-1.4 1.5-2.5C14.7 6.3 13.8 4.4 12 2z"/>
+      </svg>
+    </div>
+    <h2 class="footer-title">Revolução Francesa — 1789–1799</h2>
+    <p class="footer-sub">Projeto escolar de História</p>
+    <p class="footer-quote">"Uma década de transformações que mudou o curso da história."</p>
+    <p class="footer-line">Conteúdo baseado em acontecimentos históricos documentados.</p>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo">
+  <span aria-hidden="true">↑</span>
+</button>
+
+<!-- ============================ MODAL ============================ -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" data-close aria-label="Fechar janela">✕</button>
+    <div class="modal-body">
+      <p class="modal-date" id="modalDate"></p>
+      <h3 id="modalTitle"></h3>
+
+      <div class="modal-block">
+        <h4>O que aconteceu</h4>
+        <p id="modalText"></p>
+      </div>
+
+      <div class="modal-block importance">
+        <h4>Importância histórica</h4>
+        <p id="modalImportance"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     DADOS — LIVRO: CADA ANO = UMA PÁGINA (3 a 6 fatos)
+     ========================================================== */
+  var BOOK = [
+    {
+      year: "1789",
+      title: "O ano em que tudo começou",
+      facts: [
+        {
+          date: "5 de maio de 1789",
+          title: "Convocação dos Estados Gerais",
+          text: "Luís XVI convocou os Estados Gerais para discutir a grave crise financeira enfrentada pela França. A reunião envolvia representantes do clero, da nobreza e do Terceiro Estado.",
+          importance: "Foi o ponto de partida do processo revolucionário. Ao reunir os três Estados pela primeira vez desde 1614, a monarquia colocou em debate a representação política e os privilégios do Antigo Regime."
+        },
+        {
+          date: "17 de junho de 1789",
+          title: "Nasce a Assembleia Nacional",
+          text: "Representantes do Terceiro Estado declararam-se Assembleia Nacional, afirmando representar a nação francesa.",
+          importance: "Representou uma ruptura com a ordem tradicional: os deputados passaram a afirmar que a soberania pertencia à nação, e não ao rei."
+        },
+        {
+          date: "20 de junho de 1789",
+          title: "Juramento do Jogo da Péla",
+          text: "Os deputados da Assembleia Nacional prometeram não se separar até que uma Constituição fosse estabelecida para a França.",
+          importance: "Demonstrou a determinação dos deputados em criar uma Constituição escrita e limitar o poder do rei."
+        },
+        {
+          date: "14 de julho de 1789",
+          title: "Queda da Bastilha",
+          text: "Manifestantes de Paris tomaram a Bastilha, uma fortaleza e prisão que se tornou um dos principais símbolos da Revolução Francesa.",
+          importance: "Mostrou a força da mobilização popular em Paris e a perda de controle da monarquia sobre a capital. A data é até hoje feriado nacional na França.",
+          featured: true
+        },
+        {
+          date: "26 de agosto de 1789",
+          title: "Declaração dos Direitos do Homem e do Cidadão",
+          text: "A Assembleia Nacional aprovou uma declaração que defendia princípios como liberdade, igualdade jurídica e soberania nacional.",
+          importance: "Estabeleceu princípios que influenciaram constituições e declarações de direitos em vários países nos séculos seguintes."
+        }
+      ]
+    },
+    {
+      year: "1790",
+      title: "Reformas e reorganização",
+      facts: [
+        {
+          date: "1790",
+          title: "Reorganização administrativa da França",
+          text: "A Assembleia Nacional dividiu o país em departamentos, distritos e cantões, substituindo as antigas divisões provinciais do Antigo Regime.",
+          importance: "Buscou tornar a administração mais racional e uniforme, reduzindo o poder das antigas elites locais ligadas à nobreza e ao clero."
+        },
+        {
+          date: "12 de julho de 1790",
+          title: "Constituição Civil do Clero",
+          text: "A Assembleia aprovou uma lei que reorganizava a Igreja Católica na França e exigia que os membros do clero jurassem fidelidade à Constituição.",
+          importance: "Aprofundou a divisão entre clero juramentado e clero refratário, criando uma fratura religiosa e política duradoura na França."
+        },
+        {
+          date: "14 de julho de 1790",
+          title: "Festa da Federação",
+          text: "Uma grande celebração nacional reuniu representantes de várias regiões em Paris, simbolizando a unidade em torno da Revolução.",
+          importance: "Mostrou o esforço de construir uma identidade nacional em torno dos valores revolucionários, em um momento de relativa estabilidade."
+        }
+      ]
+    },
+    {
+      year: "1791",
+      title: "A primeira Constituição",
+      facts: [
+        {
+          date: "20–21 de junho de 1791",
+          title: "Fuga de Varennes",
+          text: "Luís XVI e sua família tentaram fugir de Paris, mas foram reconhecidos e detidos na cidade de Varennes.",
+          importance: "A fuga destruiu a confiança de boa parte da população no rei e fortaleceu os grupos que defendiam a República."
+        },
+        {
+          date: "17 de julho de 1791",
+          title: "Massacre do Campo de Marte",
+          text: "Uma manifestação republicana em Paris foi reprimida pela Guarda Nacional, deixando mortos e feridos entre os manifestantes.",
+          importance: "Revelou a divisão entre setores moderados e radicais da Revolução e aumentou a tensão política na capital."
+        },
+        {
+          date: "3 de setembro de 1791",
+          title: "Constituição de 1791",
+          text: "A França adotou uma Constituição que estabeleceu uma monarquia constitucional, limitando os poderes do rei.",
+          importance: "Encerrou juridicamente a monarquia absoluta na França. O direito de voto, porém, era restrito e censitário.",
+          note: "Fim da monarquia absoluta."
+        }
+      ]
+    },
+    {
+      year: "1792",
+      title: "A República nasce",
+      facts: [
+        {
+          date: "20 de abril de 1792",
+          title: "Declaração de guerra à Áustria",
+          text: "A Assembleia declarou guerra à Áustria, iniciando uma série de conflitos que marcariam toda a década.",
+          importance: "As guerras externas aprofundaram a instabilidade interna, reforçaram o nacionalismo revolucionário e aceleraram a queda da monarquia."
+        },
+        {
+          date: "10 de agosto de 1792",
+          title: "Queda da monarquia",
+          text: "Uma insurreição popular em Paris invadiu o Palácio das Tulherias e suspendeu os poderes do rei.",
+          importance: "Marcou o fim prático da monarquia francesa e abriu caminho para a eleição de uma nova assembleia: a Convenção."
+        },
+        {
+          date: "2–6 de setembro de 1792",
+          title: "Massacres de setembro",
+          text: "Multidões atacaram prisões em Paris e executaram centenas de detentos, muitos deles considerados inimigos da Revolução.",
+          importance: "Foi um dos primeiros episódios de violência em massa do período e anunciou o clima político do Terror."
+        },
+        {
+          date: "22 de setembro de 1792",
+          title: "Proclamação da República",
+          text: "Após o agravamento dos conflitos internos e externos, a monarquia foi abolida e a República Francesa foi proclamada em 22 de setembro de 1792.",
+          importance: "Criou a Primeira República Francesa, marcando o fim definitivo da monarquia. A nova assembleia, a Convenção, foi eleita por sufrágio masculino ampliado.",
+          featured: true
+        }
+      ]
+    },
+    {
+      year: "1793",
+      title: "O Terror começa",
+      facts: [
+        {
+          date: "21 de janeiro de 1793",
+          title: "Execução de Luís XVI",
+          text: "Luís XVI foi condenado e executado na guilhotina. O acontecimento aprofundou os conflitos entre os revolucionários e as monarquias europeias.",
+          importance: "Rompeu de vez com o Antigo Regime e provocou a formação de coalizões europeias contra a França revolucionária."
+        },
+        {
+          date: "Fevereiro–março de 1793",
+          title: "Guerra da Vendeia",
+          text: "Uma insurreição contrarrevolucionária eclodiu na região da Vendeia, no oeste da França, e se transformou em uma guerra civil.",
+          importance: "Mostrou que a Revolução não era apoiada por toda a população e aumentou a pressão sobre o governo revolucionário."
+        },
+        {
+          date: "6 de abril de 1793",
+          title: "Criação do Comitê de Salvação Pública",
+          text: "A Convenção criou um comitê encarregado de coordenar a defesa da Revolução diante das ameaças internas e externas.",
+          importance: "Concentrou poderes cada vez maiores no governo revolucionário e se tornou o principal instrumento do Terror."
+        },
+        {
+          date: "13 de julho de 1793",
+          title: "Assassinato de Marat",
+          text: "Jean-Paul Marat foi assassinado em sua banheira por Charlotte Corday, ligada a grupos girondinos.",
+          importance: "Tornou Marat um mártir da Revolução e intensificou a repressão contra os opositores dos jacobinos."
+        },
+        {
+          date: "17 de setembro de 1793",
+          title: "Lei dos Suspeitos",
+          text: "Uma lei permitiu a prisão de pessoas consideradas suspeitas de oposição à Revolução, ampliando muito o número de detenções.",
+          importance: "Formalizou juridicamente a repressão política do Terror e ampliou o poder dos tribunais revolucionários."
+        },
+        {
+          date: "16 de outubro de 1793",
+          title: "Execução de Maria Antonieta",
+          text: "A rainha Maria Antonieta foi julgada e executada na guilhotina, meses após a morte do rei.",
+          importance: "Simbolizou o rompimento total com a monarquia e com a ordem do Antigo Regime."
+        }
+      ]
+    },
+    {
+      year: "1794",
+      title: "O auge e a queda do Terror",
+      facts: [
+        {
+          date: "1793–1794",
+          title: "O Período do Terror",
+          text: "Durante o governo revolucionário radical, milhares de pessoas foram executadas, muitas delas consideradas inimigas da Revolução. Maximilien Robespierre tornou-se uma das figuras centrais desse período.",
+          importance: "Mostrou o lado mais violento do processo revolucionário e alimentou debates duradouros sobre os limites do poder.",
+          warning: "Período marcado por forte repressão política e violência."
+        },
+        {
+          date: "Fevereiro–março de 1794",
+          title: "Decretos de Ventôse",
+          text: "Robespierre e seus aliados propuseram medidas para redistribuir bens dos suspeitos e ajudar os mais pobres.",
+          importance: "Representaram uma tentativa de aprofundar a dimensão social da Revolução, mas não chegaram a ser plenamente aplicadas."
+        },
+        {
+          date: "8 de junho de 1794",
+          title: "Festa do Ser Supremo",
+          text: "Robespierre promoveu uma celebração oficial em homenagem a um culto cívico ao Ser Supremo.",
+          importance: "Buscou criar uma religião civil revolucionária, mas foi vista por muitos como sinal de seu crescente isolamento político."
+        },
+        {
+          date: "27 de julho de 1794",
+          title: "Queda de Robespierre",
+          text: "Robespierre foi preso e posteriormente executado. Sua queda marcou o fim da fase mais radical do Terror.",
+          importance: "Encerrou a etapa mais radical da Revolução e abriu caminho para uma reorganização política mais moderada.",
+          featured: true
+        }
+      ]
+    },
+    {
+      year: "1795",
+      title: "O Diretório",
+      facts: [
+        {
+          date: "1795",
+          title: "O Diretório",
+          text: "Uma nova Constituição criou o Diretório, um governo formado por cinco diretores. O período foi marcado por instabilidade política e dificuldades econômicas.",
+          importance: "Tentou estabilizar o país após o Terror, mas a instabilidade e as guerras favoreceram a crescente influência dos militares."
+        },
+        {
+          date: "5 de outubro de 1795",
+          title: "Insurreição realista do 13 de Vendemiário",
+          text: "Uma tentativa de levante realista em Paris foi reprimida pelo exército, com destaque para a atuação de Napoleão Bonaparte.",
+          importance: "Consolidou o papel do exército como força política decisiva no período do Diretório."
+        },
+        {
+          date: "1796–1797",
+          title: "Campanhas de Napoleão na Itália",
+          text: "Napoleão Bonaparte liderou campanhas militares vitoriosas na Itália, conquistando territórios e prestígio.",
+          importance: "Ampliou a influência francesa na Europa e tornou Napoleão uma figura central da política francesa."
+        }
+      ]
+    },
+    {
+      year: "1796",
+      title: "Guerras e conspirações",
+      facts: [
+        {
+          date: "1796",
+          title: "Conspiração dos Iguais",
+          text: "Um grupo liderado por Gracchus Babeuf organizou um movimento que defendia a igualdade econômica e a abolição da propriedade privada.",
+          importance: "Foi uma das primeiras tentativas de organizar um movimento socialista na história moderna, ainda que tenha fracassado."
+        },
+        {
+          date: "1796",
+          title: "Campanha do Egito",
+          text: "Napoleão Bonaparte comandou uma expedição militar ao Egito, com objetivos estratégicos e científicos.",
+          importance: "Apesar das dificuldades militares, a campanha ampliou o contato europeu com o Egito antigo e fortaleceu o prestígio de Napoleão."
+        }
+      ]
+    },
+    {
+      year: "1797",
+      title: "Golpes e instabilidade",
+      facts: [
+        {
+          date: "4 de setembro de 1797",
+          title: "Golpe do 18 de Fructidor",
+          text: "Diretores e militares promoveram um golpe que afastou deputados monarquistas do governo.",
+          importance: "Mostrou a fragilidade das instituições do Diretório e a frequência dos golpes como instrumento político."
+        },
+        {
+          date: "17 de outubro de 1797",
+          title: "Tratado de Campoformio",
+          text: "A França assinou um tratado com a Áustria, encerrando parte das guerras da Primeira Coalizão.",
+          importance: "Consolidou a posição francesa na Europa e fortaleceu a imagem de Napoleão como principal comandante militar."
+        }
+      ]
+    },
+    {
+      year: "1798",
+      title: "A França em guerra",
+      facts: [
+        {
+          date: "1798",
+          title: "Segunda Coalizão",
+          text: "Várias potências europeias formaram uma nova aliança contra a França revolucionária.",
+          importance: "Aumentou a pressão militar sobre o Diretório e agravou a crise política e econômica interna."
+        },
+        {
+          date: "1798",
+          title: "Lei Jourdan",
+          text: "Uma lei estabeleceu o serviço militar obrigatório para determinados setores da população.",
+          importance: "Ampliou o exército francês e criou um modelo de mobilização que seria usado por Napoleão."
+        }
+      ]
+    },
+    {
+      year: "1799",
+      title: "O fim da Revolução",
+      facts: [
+        {
+          date: "1799",
+          title: "Crise do Diretório",
+          text: "O governo do Diretório enfrentava crescente impopularidade, crises econômicas e derrotas militares.",
+          importance: "Preparou o terreno para o golpe que encerraria a Revolução e levaria Napoleão ao poder."
+        },
+        {
+          date: "9 de novembro de 1799",
+          title: "Golpe do 18 de Brumário",
+          text: "Napoleão Bonaparte participou do golpe que derrubou o Diretório. O acontecimento marcou o fim do período revolucionário e o início do Consulado.",
+          importance: "Encerrou a Revolução Francesa e inaugurou um novo regime, concentrando o poder nas mãos de Napoleão Bonaparte.",
+          closing: true
+        }
+      ]
+    }
+  ];
+
+  /* ==========================================================
+     UTILITÁRIOS
+     ========================================================== */
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  /* ==========================================================
+     TEMA (CLARO / ESCURO)
+     ========================================================== */
+  var root = document.documentElement;
+  var themeToggle = $("#themeToggle");
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    var isDark = theme === "dark";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.setAttribute("aria-label", isDark ? "Ativar modo claro" : "Ativar modo escuro");
+    var icon = $(".ico", themeToggle);
+    if (icon) icon.textContent = isDark ? "☀️" : "🌙";
+  }
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem("rf-livro-theme"); } catch (e) {}
+  if (!savedTheme) savedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  applyTheme(savedTheme);
+
+  themeToggle.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem("rf-livro-theme", next); } catch (e) {}
+  });
+
+  /* ==========================================================
+     ESTADO DO LIVRO
+     ========================================================== */
+  var viewport   = $("#pageViewport");
+  var dotsWrap   = $("#pageDots");
+  var prevBtn    = $("#prevBtn");
+  var nextBtn    = $("#nextBtn");
+  var tocPanel   = $("#tocPanel");
+  var tocToggle  = $("#tocToggle");
+  var readingBar = $("#readingBar");
+
+  var currentPage = 0;
+  var flipDirection = "forward";
+
+  /* ==========================================================
+     RENDER: SUMÁRIO
+     ========================================================== */
+  function renderTOC() {
+    tocPanel.innerHTML = BOOK.map(function (pg, i) {
+      return (
+        '<button class="toc-item" type="button" role="menuitem" data-page="' + i + '">' +
+          '<span class="toc-year">' + escapeHTML(pg.year) + "</span>" +
+          '<span>' + (i === 0 ? "Início" : i === BOOK.length - 1 ? "Fim" : "Página") + "</span>" +
+        "</button>"
+      );
+    }).join("");
+  }
+
+  function renderDots() {
+    dotsWrap.innerHTML = BOOK.map(function (pg, i) {
+      return (
+        '<button class="page-dot" type="button" role="tab" ' +
+          'data-page="' + i + '" aria-label="Ir para ' + escapeHTML(pg.year) + '" ' +
+          'aria-selected="false"></button>'
+      );
+    }).join("");
+  }
+
+  /* ==========================================================
+     RENDER: PÁGINA DE UM ANO
+     ========================================================== */
+  function renderPage(index) {
+    var pg = BOOK[index];
+    var pageNum = String(index + 1).padStart(2, "0");
+    var total = String(BOOK.length).padStart(2, "0");
+
+    var factsHTML = pg.facts.map(function (f, i) {
+      var classes = "fact";
+      if (f.featured) classes += " featured";
+      if (f.warning) classes += " warning";
+      if (f.closing) classes += " closing";
+
+      var inner = "";
+      if (f.closing) {
+        inner += '<span class="fact-closing-banner">FIM DA REVOLUÇÃO FRANCESA</span>';
+      }
+
+      inner += '<span class="fact-date">' + escapeHTML(f.date) + "</span>";
+      if (f.featured) inner += '<span class="fact-tag">★ Destaque</span>';
+
+      inner += "<h3>" + escapeHTML(f.title) + "</h3>";
+      inner += "<p>" + escapeHTML(f.text) + "</p>";
+
+      if (f.note) {
+        inner += '<span class="fact-warning" style="color:var(--blue-700);background:rgba(27,58,122,.09);">' + escapeHTML(f.note) + "</span>";
+      }
+      if (f.warning) {
+        inner += '<span class="fact-warning">⚠ ' + escapeHTML(f.warning) + "</span>";
+      }
+
+      inner += '<span class="fact-more">Ler mais →</span>';
+
+      return (
+        '<article class="' + classes + '" data-fact-index="' + i + '" tabindex="0" role="button" ' +
+          'aria-haspopup="dialog" aria-label="' + escapeHTML(f.title + ". Abrir detalhes.") + '">' +
+          inner +
+        "</article>"
+      );
+    }).join("");
+
+    return (
+      '<article class="page ' + (flipDirection === "back" ? "flip-back" : "") + '" ' +
+        'aria-labelledby="pageTitle-' + index + '" data-page-content="' + index + '">' +
+
+        '<header class="page-header">' +
+          '<div class="page-year-block">' +
+            '<div class="page-year">' + escapeHTML(pg.year) + "</div>" +
+            '<div class="page-year-label">' +
+              "<strong>Ano</strong>" +
+              "Revolução Francesa" +
+            "</div>" +
+          "</div>" +
+          '<div class="page-meta">' +
+            "<span>Página</span>" +
+            '<span class="page-num">' + pageNum + " / " + total + "</span>" +
+          "</div>" +
+        "</header>" +
+
+        '<h2 class="page-title" id="pageTitle-' + index + '">' + escapeHTML(pg.title) + "</h2>" +
+
+        '<div class="facts">' + factsHTML + "</div>" +
+
+      "</article>"
+    );
+  }
+
+  /* ==========================================================
+     NAVEGAÇÃO
+     ========================================================== */
+  function goToPage(index, direction) {
+    if (index < 0 || index >= BOOK.length) return;
+    if (index === currentPage && direction === undefined) return;
+
+    flipDirection = direction || (index > currentPage ? "forward" : "back");
+    currentPage = index;
+
+    viewport.innerHTML = renderPage(currentPage);
+    updateControls();
+
+    // Reinicia o foco no topo da página para leitores de tela / teclado
+    requestAnimationFrame(function () {
+      viewport.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+    });
+
+    try { localStorage.setItem("rf-livro-page", String(currentPage)); } catch (e) {}
+  }
+
+  function updateControls() {
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === BOOK.length - 1;
+
+    // Dots
+    $$(".page-dot", dotsWrap).forEach(function (dot, i) {
+      var active = i === currentPage;
+      dot.classList.toggle("active", active);
+      dot.setAttribute("aria-selected", String(active));
+    });
+
+    // TOC
+    $$(".toc-item", tocPanel).forEach(function (item, i) {
+      item.classList.toggle("active", i === currentPage);
+    });
+
+    // Barra de leitura
+    var pct = ((currentPage + 1) / BOOK.length) * 100;
+    readingBar.style.width = pct + "%";
+  }
+
+  prevBtn.addEventListener("click", function () { goToPage(currentPage - 1, "back"); });
+  nextBtn.addEventListener("click", function () { goToPage(currentPage + 1, "forward"); });
+
+  dotsWrap.addEventListener("click", function (e) {
+    var dot = e.target.closest(".page-dot");
+    if (!dot) return;
+    goToPage(parseInt(dot.getAttribute("data-page"), 10));
+  });
+
+  tocPanel.addEventListener("click", function (e) {
+    var item = e.target.closest(".toc-item");
+    if (!item) return;
+    goToPage(parseInt(item.getAttribute("data-page"), 10));
+    closeTOC();
+  });
+
+  /* Navegação por teclado (setas) */
+  document.addEventListener("keydown", function (e) {
+    if (modal.classList.contains("open")) return;
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+    if (e.key === "ArrowRight" || e.key === "PageDown") {
+      if (currentPage < BOOK.length - 1) { e.preventDefault(); goToPage(currentPage + 1, "forward"); }
+    } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      if (currentPage > 0) { e.preventDefault(); goToPage(currentPage - 1, "back"); }
+    } else if (e.key === "Home") {
+      e.preventDefault(); goToPage(0, "back");
+    } else if (e.key === "End") {
+      e.preventDefault(); goToPage(BOOK.length - 1, "forward");
+    }
+  });
+
+  /* ==========================================================
+     SUMÁRIO (ABRIR/FECHAR)
+     ========================================================== */
+  function openTOC() {
+    tocPanel.classList.add("open");
+    tocToggle.setAttribute("aria-expanded", "true");
+  }
+  function closeTOC() {
+    tocPanel.classList.remove("open");
+    tocToggle.setAttribute("aria-expanded", "false");
+  }
+  tocToggle.addEventListener("click", function (e) {
+    e.stopPropagation();
+    tocPanel.classList.contains("open") ? closeTOC() : openTOC();
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".toc")) closeTOC();
+  });
+
+  /* ==========================================================
+     MODAL
+     ========================================================== */
+  var modal = $("#modal");
+  var modalDate = $("#modalDate");
+  var modalTitle = $("#modalTitle");
+  var modalText = $("#modalText");
+  var modalImportance = $("#modalImportance");
+  var lastFocused = null;
+
+  function openModal(fact) {
+    lastFocused = document.activeElement;
+
+    modalDate.textContent = fact.date;
+    modalTitle.textContent = fact.title;
+    modalText.textContent = fact.text;
+    modalImportance.textContent = fact.importance;
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    var closeBtn = $(".modal-close", modal);
+    window.setTimeout(function () { closeBtn.focus(); }, 60);
+  }
+
+  function closeModal() {
+    if (!modal.classList.contains("open")) return;
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+  }
+
+  viewport.addEventListener("click", function (e) {
+    var card = e.target.closest(".fact");
+    if (!card) return;
+    var idx = parseInt(card.getAttribute("data-fact-index"), 10);
+    var fact = BOOK[currentPage].facts[idx];
+    if (fact) openModal(fact);
+  });
+
+  viewport.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    var card = e.target.closest(".fact");
+    if (!card) return;
+    e.preventDefault();
+    var idx = parseInt(card.getAttribute("data-fact-index"), 10);
+    var fact = BOOK[currentPage].facts[idx];
+    if (fact) openModal(fact);
+  });
+
+  $$("[data-close]", modal).forEach(function (el) {
+    el.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeModal(); closeTOC(); }
+
+    // Foco preso dentro do modal
+    if (e.key === "Tab" && modal.classList.contains("open")) {
+      var focusables = $$("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])", modal)
+        .filter(function (el) { return el.offsetParent !== null; });
+      if (!focusables.length) return;
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ==========================================================
+     VOLTAR AO TOPO
+     ========================================================== */
+  var toTop = $("#toTop");
+  toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+  });
+  window.addEventListener("scroll", function () {
+    toTop.classList.toggle("show", window.scrollY > 600);
+  }, { passive: true });
+
+  /* ==========================================================
+     INICIALIZAÇÃO
+     ========================================================== */
+  renderTOC();
+  renderDots();
+
+  var savedPage = 0;
+  try {
+    var sp = parseInt(localStorage.getItem("rf-livro-page") || "0", 10);
+    if (!isNaN(sp) && sp >= 0 && sp < BOOK.length) savedPage = sp;
+  } catch (e) {}
+  goToPage(savedPage);
+
+})();
+</script>
+</body>
+</html>
